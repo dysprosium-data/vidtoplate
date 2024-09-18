@@ -8,7 +8,7 @@ import sys
 import platform
 import time
 import datetime
-
+plates = []
 #-- CLI
 class col:
     black = "\033[0;30m"
@@ -95,7 +95,13 @@ def main():
     print(msg.init + msg.success + "Update check passed")
     time.sleep(1)
     print("Enter licence plate (BE CASE SENSITIVE)")
-    plate = input(": ")
-    print(f"Plate: {plate}")
+    plates.append(input(": "))
+    while True:
+        print("Enter another licence plate (or 'd' for done)")
+        opt = input(": ")
+        if opt == "d":
+            break
+        else:
+            plates.append(opt)
 
 main()
