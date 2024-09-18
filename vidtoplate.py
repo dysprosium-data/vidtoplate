@@ -9,6 +9,13 @@ import platform
 import time
 import datetime
 plates = []
+
+def cls():
+    if platform.system() == "Windows":
+        os.system("cls")
+    else:
+        os.system("clear")
+
 #-- CLI
 class col:
     black = "\033[0;30m"
@@ -94,14 +101,20 @@ def main():
         os.execv(sys.executable, ['python3'] + sys.argv)
     print(msg.init + msg.success + "Update check passed")
     time.sleep(1)
+    cls()
     print("Enter licence plate (BE CASE SENSITIVE)")
     plates.append(input(": "))
     while True:
+        cls()
+        print(f"Plates: {plates}")
         print("Enter another licence plate (or 'd' for done)")
         opt = input(": ")
         if opt == "d":
             break
         else:
             plates.append(opt)
+    cls()
+    print(plates)
+    input("Press enter when your camera is ready")
 
 main()
