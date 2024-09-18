@@ -1,5 +1,5 @@
 # vidtoplate
-# Simple program to find license plates from
+# Simple program to find licence plates from
 # video stream
 import requests
 import os
@@ -94,7 +94,8 @@ def main():
         os.execv(sys.executable, ['python3'] + sys.argv)
     print(msg.init + msg.success + "Update check passed")
     time.sleep(1)
-    print("Enter license plate (BE CASE SENSITIVE)")
+    print("Enter licence plate (BE CASE SENSITIVE)")
     plate = input(": ")
+    print(f"Plate: {plate}")
 
 main()
