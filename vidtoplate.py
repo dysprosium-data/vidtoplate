@@ -1,5 +1,5 @@
 # vidtoplate
-# Simple program to find licence plates from
+# Simple program to find license plates from
 # video stream
 import requests
 import os
@@ -8,6 +8,42 @@ import sys
 import platform
 import time
 import datetime
+
+#-- CLI
+class col:
+    black = "\033[0;30m"
+    red = "\033[0;31m"
+    green = "\033[0;32m"
+    brown = "\033[0;33m"
+    blue = "\033[0;34m"
+    purple = "\033[0;35m"
+    cyan = "\033[0;36m"
+    light_gray = "\033[0;37m"
+    dark_gray = "\033[1;30m"
+    light_red = "\033[1;31m"
+    light_green = "\033[1;32m"
+    yellow = "\033[1;33m"
+    light_blue = "\033[1;34m"
+    light_purple = "\033[1;35m"
+    light_cyan = "\033[1;36m"
+    light_white = "\033[1;37m"
+    bold = "\033[1m"
+    faint = "\033[2m"
+    italic = "\033[3m"
+    underline = "\033[4m"
+    blink = "\033[5m"
+    negative = "\033[7m"
+    crossed = "\033[9m"
+    end = "\033[0m"
+
+class msg:
+    init = col.blue + "[INIT]: " + col.end
+    warn = col.red + "(WARN) " + col.end
+    success = col.green + "(SUCCESS) " + col.end
+
+#--
+
+#-- Update script
 class update:
 
     def get_github_file_content(repo, path):
@@ -39,21 +75,26 @@ class update:
             local_content = update.get_local_file_content(LOCAL_FILE)
             
             if update.get_hash(github_content) != update.get_hash(local_content):
-                print("Updating vidtoplate...")
+                print(msg.init + "Updating vidtoplate...")
                 update.update_local_file(LOCAL_FILE, github_content)
-                print("Update complete, restarting script")
+                print(msg.init + msg.success + "Update complete, restarting script")
                 time.sleep(2)
             else:
-                print("Script up-to-date.")
+                print(msg.init + msg.success + "Script up-to-date.")
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(msg.init + msg.warn + f"An error occurred: {e}")
 
 
 def main():
+    print("Starting vidtoplate")
     global updated
     updated = False
     update.main()
     if updated == True:
         os.execv(sys.executable, ['python3'] + sys.argv)
+    print(msg.init + msg.success + "Update check passed")
+    time.sleep(1)
+    print("Enter license plate (BE CASE SENSITIVE)")
+    plate = input(": ")
 
 main()
