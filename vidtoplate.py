@@ -31,12 +31,12 @@ class update:
 
 
         try:
-            github_content = get_github_file_content(GITHUB_REPO, FILE_PATH)
-            local_content = get_local_file_content(LOCAL_FILE)
+            github_content = update.get_github_file_content(GITHUB_REPO, FILE_PATH)
+            local_content = update.get_local_file_content(LOCAL_FILE)
             
-            if get_hash(github_content) != get_hash(local_content):
+            if update.get_hash(github_content) != update.get_hash(local_content):
                 print("Updating vidtoplate...")
-                update_local_file(LOCAL_FILE, github_content)
+                update.update_local_file(LOCAL_FILE, github_content)
                 print("Update complete.")
             else:
                 print("Script up-to-date.")
@@ -46,3 +46,4 @@ class update:
 
 def main():
     update.main()
+main()
