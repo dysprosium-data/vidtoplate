@@ -4,7 +4,10 @@
 import requests
 import os
 import hashlib
-
+import sys
+import platform
+import time
+import datetime
 class update:
 
     def get_github_file_content(repo, path):
@@ -25,6 +28,7 @@ class update:
             file.write(content)
 
     def main():
+        global updated
         GITHUB_REPO = "dysprosium-data/vidtoplate"
         FILE_PATH = "vidtoplate.py"
         LOCAL_FILE = "vidtoplate.py"
@@ -37,7 +41,8 @@ class update:
             if update.get_hash(github_content) != update.get_hash(local_content):
                 print("Updating vidtoplate...")
                 update.update_local_file(LOCAL_FILE, github_content)
-                print("Update complete.")
+                print("Update complete, restarting script")
+                time.sleep(2)
             else:
                 print("Script up-to-date.")
         except Exception as e:
@@ -45,5 +50,10 @@ class update:
 
 
 def main():
+    global updated
+    updated = False
     update.main()
+    if updated == True:
+        os.execv(sys.executable, ['python3'] + sys.argv)
+
 main()
