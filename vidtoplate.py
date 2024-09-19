@@ -8,6 +8,7 @@ import sys
 import platform
 import time
 import datetime
+import cv2
 plates = []
 
 def cls():
@@ -91,6 +92,22 @@ class update:
         except Exception as e:
             print(msg.init + msg.warn + f"An error occurred: {e}")
 
+def camera():
+    vid = cv2.VideoCapture(0)
+    vid.set(3,200)
+    vid.set(4,200)
+
+    while True:
+    #inside infinity loop
+        ret, frame = vid.read()
+        cv2.imshow('frame', frame)
+        print(ret)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+
+    vid.release()
+    cv2.destroyAllWindows() 
 
 def main():
     print("Starting vidtoplate")
@@ -116,5 +133,6 @@ def main():
     cls()
     print(plates)
     input("Press enter when your camera is ready")
+    camera()
 
 main()
