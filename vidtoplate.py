@@ -113,7 +113,7 @@ def main():
     print("Starting vidtoplate")
     global updated
     updated = False
-    update.main()
+#    update.main()
     if updated == True:
         os.execv(sys.executable, ['python3'] + sys.argv)
     print(msg.init + msg.success + "Update check passed")
